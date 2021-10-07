@@ -1,6 +1,9 @@
 <template>
-<div class='toolbar' v-if='true'>
-      <button @click="editor.chain().focus().toggleBold().run()" :class="{ 'is-active': editor.isActive('bold') }">
+<div class='toolbar' id="app" v-if='true'>
+      <!-- <h1>{{new Date().toLocaleString()}}</h1>
+      <h1>{{this.date}}</h1> -->
+      <!-- <h1>{{this.editable}}</h1> -->
+      <button @click="editor.chain().focus().toggleBold().run()">
         bold
       </button>
       <button @click="editor.chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
@@ -63,31 +66,92 @@
       <button @click="editor.chain().focus().redo().run()">
         redo
       </button>
+      <!-- <button @click="editor.chain().focus().getCharacterCount()">
+        character count: {{ editor.wordCount }}
+      </button> -->
+      <button v-on:click="fireAlert">Submit</button>
     </div>
   <editor-content class='fullheight' :editor="editor" />
 </template>
 
 <script lang='ts'>
 import { Editor, EditorContent } from '@tiptap/vue-3'
+import CharacterCount from '@tiptap/extension-character-count'
 import StarterKit from '@tiptap/starter-kit'
 import { defineComponent } from 'vue'
 
-const Component =  defineComponent({
+const editor = new Editor({
+  content: '<p>Begin typing here </p>',
+  extensions: [
+    StarterKit,
+  ],
+  onUpdate({ editor }) {
+    const wordCount = editor.state.doc.textContent.length
+    console.log("word count:", wordCount)
+    if(wordCount >= 30 ){
+      editor.options.editable = false
+      alert(`Character limit is ${ wordCount }`)
+    }
+  }
+})
+
+const Component = defineComponent({
+  computed: {
+    boldclass(): boolean {
+      try {
+        return this.editor.isActive('bold')
+      } catch (e) {
+        console.log(e)
+      }
+      console.log("this.editor", this.editor)
+      return false
+    },
+    deactivate: function() {
+      try {
+        return this.editor.isActive(false)
+      } catch (e) {
+        console.log(e)
+      }
+    },
+  },
+
   components: {
     EditorContent,
   },
 
+  props:
+    ['editable'],
+
+  methods: {
+    currentDate() {
+      const current = new Date();
+      const date = `${current.getDate()}/${current.getMonth()+1}/${current.getFullYear()}`;
+      return date;
+    },
+    fireAlert: function() {
+      alert('Submit button clicked')
+    }
+  },
+
   data() {
     return {
-      editor: null as unknown as Editor
+      editor: editor,
+      date: new Date().toISOString(),
+      limit: 10,
     }
   },
 
   mounted() {
+    // this.editor = editor
+    // console.log("console log this.editor in mounted", this.editor)
+
     this.editor = new Editor({
       content: '<p>I’m running tiptap with Vue.js. 🎉</p>',
       extensions: [
         StarterKit,
+        CharacterCount.configure({
+          limit: this.limit,
+        }),
       ],
     })
   },
@@ -96,6 +160,7 @@ const Component =  defineComponent({
     this.editor.destroy()
   },
 })
-export default Component
-</script>
 
+export default Component
+
+</script>
