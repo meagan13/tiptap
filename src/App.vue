@@ -1,11 +1,16 @@
-<script setup lang="ts">
-import Tiptap from './components/Tiptap.vue'
-</script>
-
 <template>
-    <Tiptap/>
+    <div id="app">
+        <Tiptap/>
+    </div>
 </template>
 
-<style>
+<script setup lang="ts">
+import Tiptap from './components/Tiptap.vue'
 
-</style>
+export default {
+    name: 'App',
+    components: {
+        Tiptap
+    }
+}
+</script>

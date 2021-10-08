@@ -1,5 +1,5 @@
 <template>
-    <div class='toolbar h-50' id="app" v-if='true'>
+    <div class='toolbar h-50' v-if='true'>
       <button class="btn" @click="editor.chain().focus().toggleBold().run()">
         bold
       </button>
