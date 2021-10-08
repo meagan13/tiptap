@@ -3,7 +3,7 @@ import Tiptap from './components/Tiptap.vue'
 </script>
 
 <template>
-<Tiptap/>
+    <Tiptap/>
 </template>
 
 <style>
