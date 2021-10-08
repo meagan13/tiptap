@@ -1,9 +1,6 @@
 <template>
-<div class='toolbar' id="app" v-if='true'>
-      <!-- <h1>{{new Date().toLocaleString()}}</h1>
-      <h1>{{this.date}}</h1> -->
-      <!-- <h1>{{this.editable}}</h1> -->
-      <button @click="editor.chain().focus().toggleBold().run()">
+    <div class='toolbar h-50' id="app" v-if='true'>
+      <button class="btn" @click="editor.chain().focus().toggleBold().run()">
         bold
       </button>
       <button @click="editor.chain().focus().toggleItalic().run()" :class="{ 'is-active': editor.isActive('italic') }">
@@ -66,9 +63,6 @@
       <button @click="editor.chain().focus().redo().run()">
         redo
       </button>
-      <!-- <button @click="editor.chain().focus().getCharacterCount()">
-        character count: {{ editor.wordCount }}
-      </button> -->
       <button v-on:click="fireAlert">Submit</button>
     </div>
   <editor-content class='fullheight' :editor="editor" />
@@ -137,24 +131,24 @@ const Component = defineComponent({
     return {
       editor: editor,
       date: new Date().toISOString(),
-      limit: 10,
+      limit: 20,
     }
   },
 
-  mounted() {
-    // this.editor = editor
-    // console.log("console log this.editor in mounted", this.editor)
+  // mounted() {
+  //   // this.editor = editor
+  //   // console.log("console log this.editor in mounted", this.editor)
 
-    this.editor = new Editor({
-      content: '<p>I’m running tiptap with Vue.js. 🎉</p>',
-      extensions: [
-        StarterKit,
-        CharacterCount.configure({
-          limit: this.limit,
-        }),
-      ],
-    })
-  },
+  //   this.editor = new Editor({
+  //     content: '<p>What is this?</p>',
+  //     extensions: [
+  //       StarterKit,
+  //       CharacterCount.configure({
+  //         limit: this.limit,
+  //       }),
+  //     ],
+  //   })
+  // },
 
   beforeUnmount() {
     this.editor.destroy()

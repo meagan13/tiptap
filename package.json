@@ -10,6 +10,7 @@
     "@tiptap/extension-character-count": "^2.0.0-beta.13",
     "@tiptap/starter-kit": "^2.0.0-beta.115",
     "@tiptap/vue-3": "^2.0.0-beta.66",
+    "tailwindcss": "^2.2.16",
     "vue": "^3.2.16"
   },
   "devDependencies": {
