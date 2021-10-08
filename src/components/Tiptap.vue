@@ -81,6 +81,7 @@ const editor = new Editor({
   content: '<p>Begin typing here </p>',
   extensions: [
     StarterKit,
+    CharacterCount,
   ],
   onUpdate({ editor }) {
     const wordCount = editor.state.doc.textContent.length

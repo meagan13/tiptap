@@ -1,16 +1,16 @@
 <template>
-    <div id="app">
+    <div >
         <Tiptap/>
     </div>
 </template>
 
-<script setup lang="ts">
+<script  lang="ts">
+import { defineComponent } from 'vue'
 import Tiptap from './components/Tiptap.vue'
 
-export default {
-    name: 'App',
+export default defineComponent({
     components: {
         Tiptap
     }
-}
+})
 </script>
